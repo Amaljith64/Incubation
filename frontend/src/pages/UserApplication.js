@@ -17,6 +17,7 @@ function UserApplication() {
 
   return (
     <div className="vh-100">
+      <Header />
       <div className="authincation h-100">
         <div className="container h-100">
           <div className="row justify-content-center h-100 align-items-center">
@@ -36,14 +37,16 @@ function UserApplication() {
                               <thead>
                                 <tr>
                                   <th scope="col">#</th>
-                                  <th scope="col">Product</th>
-                                  <th scope="col">Popularity</th>
-                                  <th scope="col">Sales</th>
+                                  <th scope="col">Company Name</th>
+                                  <th scope="col">Progress</th>
+                                  <th scope="col"></th>
+                                  <th scope="col">Status</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 { application.map((val)=>{
-                                <tr>
+                                return(
+                                  <tr>
                                   <th>{val.id}</th>
                                   <td>{val.companyname}</td>
                                   <td>
@@ -54,12 +57,14 @@ function UserApplication() {
                                       }}
                                     >
                                       <div
-                                        className= {val.pending===true ? "progress-bar  pending" : val.Approved===true ? "progress-bar  approved" :
+                                        className= {val.status==="PENDING" ? "progress-bar  pending" : val.status==="APPROVED" ? "progress-bar  approved" :
                                     val.alloted===true ? "progress-bar  alloted" : "progress-bar  denied"}
                                         
                                         role="progressbar"
                                       >
                                         <span className="sr-only">
+                                        {val.status==="PENDING" ? "30% Complete" : val.status==="APPROVED" ? "60% Complete" :
+                                    val.alloted===true ? "100% Complete" : "0% Complete"}
                                           70% Complete
                                         </span>
                                       </div>
@@ -67,10 +72,20 @@ function UserApplication() {
                                   </td>
                                   <td>
                                     <span className="badge badge-primary light">
-                                      70%
+                                    {val.status==="PENDING" ? "30% Complete" : val.status==="APPROVED" ? "60% Complete" :
+                                    val.alloted===true ? "100% Complete" : "0% Complete"}
+                                      
                                     </span>
                                   </td>
+                                  <td>
+                                    <b>
+                                    {val.status==="PENDING" ? "PENDING" : val.status==="APPROVED" ? "APPROVED" :
+                                    val.alloted===true ? "ALLOTED" : "DECLINED"}
+                                      </b>
+                                   
+                                  </td>
                                 </tr>
+                                )
 })}
                                 
                               </tbody>

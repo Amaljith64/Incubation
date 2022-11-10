@@ -29,7 +29,7 @@ const Header = () => {
             <div className="collapse navbar-collapse justify-content-between">
               <div className="header-left ">
                 <div className="dashboard_bar">INCUBATION </div>
-                <div className="dashboard_bar"> Your Application</div>
+                <div className="dashboard_bar" > <Link to ='/viewapplication'>Your Application</Link> </div>
               </div>
               { user ? (
                 <ul className="navbar-nav header-right">

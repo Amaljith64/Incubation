@@ -12,6 +12,7 @@ const AllSlots = () => {
   const [applicant, setApplicant] = useState([]);
   const [slotid, setSlotId] = useState("")
 
+
   const [reducerValue, forceUpdate] = useReducer((x)=> x + 1, 0)
 
   useEffect(() => {
@@ -110,9 +111,9 @@ useEffect(()=>{
                           <div class="modal-body">
                           {applicant.map((list, id) => {
                             return (                           
-                                <span  onClick={()=>AssignSlot(data.id,list.id)} value={list.id} key={id} >
+                                <h4 data-bs-dismiss="modal"  onClick={()=>AssignSlot(list.id)} value={list.id} key={id} >
                                     {list.companyname}
-                                </span>                              )
+                                </h4>                              )
                             })}
                           </div>
                           <div class="modal-footer">
