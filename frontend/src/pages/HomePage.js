@@ -1,4 +1,5 @@
 import React, { useEffect, useState,useContext } from 'react'
+import ApplicationForm from '../components/ApplicationForm'
 import AuthContext from '../context/AuthContext'
 
 function HomePage() {
@@ -25,7 +26,7 @@ function HomePage() {
   }
   return (
     <div>
-        
+        <ApplicationForm/>
         <p>You are logged to HomePage</p>
         <ul>
           {notes.map(note=>(

@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const AuthContext = createContext();
 export default AuthContext;
@@ -16,7 +17,7 @@ export const AuthProvider = ({ children }) => {
       : null
   );
   const [loading, setLoading] = useState(true);
-  const history = useHistory();
+  const Navigate = useNavigate();
 
   let loginUser = async (e) => {
     e.preventDefault();
@@ -31,24 +32,57 @@ export const AuthProvider = ({ children }) => {
       }),
     });
 
+    const loginAuth=()=>{
+      console.log({user},"qqqq")
+      if(user.is_superuser===true){
+        Navigate('/adminhome');
+      }
+      else{
+        Navigate('/');
+      }
+  }
+
     let data = await response.json();
     console.log(data);
     if (response.status === 200) {
       setAuthTokens(data);
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
-      history.push("/");
+      loginAuth()
     } else {
       alert("something went wrong");
     }
   };
 
+
   let logoutUser = () => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
-    history.push("/login");
+    Navigate("/login");
   };
+
+
+  let userSignup = async (e)=>{
+    
+    e.preventDefault();
+    let response = await axios.post("http://127.0.0.1:8000/api/signup/",
+    {'username':e.target.name.value, 'email':e.target.email.value, 'password':e.target.password.value})
+    
+  
+
+    if (response.status === 200){
+        
+      Navigate("/login");
+         
+         console.log("register Successful");
+        }
+        else{
+          
+          
+          console.log("SOmething problem in register");
+    }
+}
 
   let updateToken = async () => {
     console.log("update token......");
@@ -77,6 +111,7 @@ export const AuthProvider = ({ children }) => {
     authTokens: authTokens,
     loginUser: loginUser,
     logoutUser: logoutUser,
+    userSignup:userSignup,
   };
 
   useEffect(() => {
@@ -100,3 +135,7 @@ export const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
   );
 };
+
+
+
+

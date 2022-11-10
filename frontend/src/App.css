@@ -1,0 +1,12 @@
+.denied{
+    width:0%
+}
+.pending{
+    width:30%
+}
+.approved{
+    width:60%
+}
+.alloted{
+    width:100%
+}
