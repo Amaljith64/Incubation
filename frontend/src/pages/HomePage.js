@@ -27,12 +27,7 @@ function HomePage() {
   return (
     <div>
         <ApplicationForm/>
-        <p>You are logged to HomePage</p>
-        <ul>
-          {notes.map(note=>(
-            <li key={note.id}>{note.body}</li>
-          ))}
-        </ul>
+        
     </div>
   )
 }

@@ -49,10 +49,10 @@ const ApprovedList = () => {
                                   </tr>
                               </thead>
                               <tbody>
-                              {data.map((list)=>{
+                              {data.map((list,id)=>{
                                   return(
                                       <tr>
-                                      <td><strong>{list.id}</strong></td>
+                                      <td > <strong>key={list.id}</strong></td>
                                       <td>{list.companyname}</td>
                                       <td>{list.email}</td>
                                       <td>{list.phone}</td>

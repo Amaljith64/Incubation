@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import slot as Slots
+import json
 
 from accounts.api.serializers import*
 
@@ -65,3 +66,20 @@ class SlotList(APIView):
         if availableSLot:
             return Response(availableSLot.data,status=status.HTTP_200_OK)
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class BookSlot(APIView):
+    def post(self,request):
+        body = request.body.decode('utf-8')
+        body = json.loads(body)
+        slotid=body['slotid']
+        applicantid=body['applicantid']
+        print(slotid)
+        print(applicantid)
+        slot=Slots.objects.get(id=slotid)
+        user=Application.objects.get(id=applicantid)
+        slot.reservedby=user
+        slot.available=False
+        slot.save()
+        return Response(200)
+        

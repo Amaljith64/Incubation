@@ -32,15 +32,6 @@ export const AuthProvider = ({ children }) => {
       }),
     });
 
-    const loginAuth=()=>{
-      console.log({user},"qqqq")
-      if(user.is_superuser===true){
-        Navigate('/adminhome');
-      }
-      else{
-        Navigate('/');
-      }
-  }
 
     let data = await response.json();
     console.log(data);
@@ -48,7 +39,11 @@ export const AuthProvider = ({ children }) => {
       setAuthTokens(data);
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
-      loginAuth()
+      if(jwt_decode(data.access).is_superuser){
+        Navigate('/adminhome')
+      }else{
+        Navigate('/')
+      }
     } else {
       alert("something went wrong");
     }

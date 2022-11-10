@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +10,9 @@ const AllSlots = () => {
   const Swal = require("sweetalert2");
   const [slots, setSlots] = useState([]);
   const [applicant, setApplicant] = useState([]);
+  const [slotid, setSlotId] = useState("")
+
+  const [reducerValue, forceUpdate] = useReducer((x)=> x + 1, 0)
 
   useEffect(() => {
     axios
@@ -17,20 +20,51 @@ const AllSlots = () => {
       .then((response) => setApplicant(response.data));
   }, []);
 
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/adminside/slotbooking")
-      .then((response) => setSlots(response.data));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://127.0.0.1:8000/adminside/slotbooking")
+  //     .then((response) => setSlots(response.data));
+  // },[]);
 
 console.log(slots)
 
-console.log(applicant)
+console.log(applicant,"applicantttt")
 
 
-const AssignSlot=(slotid,userid)=>{
-  
+// const AssignSlot=(slotid,userid)=>{
+// console.log(slotid,'slottttttttttttttttttttttttttt')
+//   axios
+//       .post("http://127.0.0.1:8000/adminside/bookslot",{slotid:slotid,applicantid:userid}).then((response)=>{
+        
+//       })
+
+// }
+const AssignSlot=(userid)=>{
+console.log(slotid,'slottttttttttttttttttttttttttt')
+console.log(userid ,'userrrrrrr')
+  axios
+      .post("http://127.0.0.1:8000/adminside/bookslot",{slotid:slotid,applicantid:userid})
+      .then((response)=>{
+        console.log("responsee", response.data);
+      })
+      forceUpdate()
+
 }
+
+console.log('SETID', slotid);
+  const loadSlot=async()=>{
+    await axios
+    .get("http://127.0.0.1:8000/adminside/slotbooking")
+    .then((response) => setSlots(response.data));
+
+  }
+
+
+useEffect(()=>{
+
+  loadSlot()
+},[reducerValue])
+
 
   return (
     <>
@@ -58,9 +92,8 @@ const AssignSlot=(slotid,userid)=>{
                       <div className={`social-graph-wrapper ${data.available===true ? `widget-googleplus` : `widget-linkedin`} `}>
                         <span className="s-icon "> 
                         {data.available===true ?                
-                          <i data-bs-toggle="modal" data-bs-target="#exampleModalCenter" className= "mt-5 pt-5 fab">{data.id}</i> :
-                          <i onClick={() => Swal.fire("Already Booked")} className= "mt-5 pt-5 fab">{data.id}</i> }
-
+                          <i data-bs-toggle="modal" onClick={()=>setSlotId(data.id)} data-bs-target="#exampleModalCenter" className= "mt-5 pt-5 fab">{data.id}</i> :
+                          <i onClick={() => Swal.fire("Already Booked")} className= "mt-5 pt-5 fab">not available</i> }
                         </span>
                       </div>                     
                     </div>
@@ -77,9 +110,9 @@ const AssignSlot=(slotid,userid)=>{
                           <div class="modal-body">
                           {applicant.map((list, id) => {
                             return (                           
-                                <option onClick={AssignSlot(data.id,list.id)} value={list.id} key={id} >
+                                <span  onClick={()=>AssignSlot(data.id,list.id)} value={list.id} key={id} >
                                     {list.companyname}
-                                </option>                              )
+                                </span>                              )
                             })}
                           </div>
                           <div class="modal-footer">

@@ -16,6 +16,7 @@ urlpatterns = [
 
 
     path('slotbooking',views.SlotList.as_view(),name="slotbooking"),
+    path('bookslot',views.BookSlot.as_view(),name="bookslot"),
 
 
 ]
