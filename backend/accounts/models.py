@@ -26,6 +26,6 @@ class Application(models.Model):
     img = models.ImageField(upload_to='image',null=True)
     status = models.CharField(max_length=100,null=True,choices=STATUS,default='PENDING')
     alloted = models.BooleanField(default=False)
-    pending=models.BooleanField(default=True)
+
 
 

@@ -67,6 +67,20 @@ useEffect(()=>{
 },[reducerValue])
 
 
+
+const createSlot = (e) => {
+  axios
+      .post("http://127.0.0.1:8000/adminside/slotbooking", {
+          
+      })
+      .then(function (response) {
+          // navigate("/slots")
+          
+      });
+      forceUpdate()
+      
+};
+
   return (
     <>
       <Logo />
@@ -80,6 +94,9 @@ useEffect(()=>{
             <div className="card">
               <div className="card-header">
                 <h4 className="card-title">Slots</h4>
+                <button onClick={()=>createSlot()} type="button" class="btn btn-rounded btn-success"><span
+                                        class="btn-icon-start text-dark"><i class="fa fa-plus color-black"></i>
+                                    </span>Add</button>
               </div>
               <div className="card-body pb-1">
                 <div id="lightgallery" className="row">
@@ -90,11 +107,11 @@ useEffect(()=>{
                     <>
                     <div className="col-xl-3 col-xxl-3 col-sm-6">
                     <div className="card overflow-hidden">
-                      <div className={`social-graph-wrapper ${data.available===true ? `widget-googleplus` : `widget-linkedin`} `}>
+                      <div className={`social-graph-wrapper ${data.available===true ? `widget-linkedin` : `widget-googleplus`} `}>
                         <span className="s-icon "> 
                         {data.available===true ?                
-                          <i data-bs-toggle="modal" onClick={()=>setSlotId(data.id)} data-bs-target="#exampleModalCenter" className= "mt-5 pt-5 fab">{data.id}</i> :
-                          <i onClick={() => Swal.fire("Already Booked")} className= "mt-5 pt-5 fab">not available</i> }
+                          <i data-bs-toggle="modal" onClick={()=>setSlotId(data.id)} data-bs-target="#exampleModalCenter" className= "mt-5 pt-5 fab">AVAILABLE</i> :
+                          <i onClick={() => Swal.fire("Already Booked")} className= "mt-5 pt-5 fab">BOOKED</i> }
                         </span>
                       </div>                     
                     </div>
@@ -110,16 +127,15 @@ useEffect(()=>{
                           </div>
                           <div class="modal-body">
                           {applicant.map((list, id) => {
-                            return (                           
+                            return (   
+                              list.alloted ? null  :                     
                                 <h4 data-bs-dismiss="modal"  onClick={()=>AssignSlot(list.id)} value={list.id} key={id} >
                                     {list.companyname}
-                                </h4>                              )
+                                </h4>  
+                                                                                     )
                             })}
                           </div>
-                          <div class="modal-footer">
-                              <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary">Save changes</button>
-                          </div>
+                         
                       </div>
                   </div>
                   </div>

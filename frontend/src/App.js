@@ -15,6 +15,7 @@ import AdminHome from './pages/AdminHome';
 import UserApplication from './pages/UserApplication';
 import ApprovedList from './pages/ApprovedList';
 import DeclinedList from './pages/DeclinedList';
+import AllotedList from './pages/AllotedList';
 import AllSlots from './pages/AllSlots';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route element={<AdminHome/>} exact path="/adminhome" />
           <Route element={<UserApplication/>} path="/viewapplication" />
           <Route element={<ApprovedList/>} path="/approved" />
+          <Route element={<AllotedList />} path="/alloted" />
           <Route element={<DeclinedList/>} path="/declined" />
           <Route element={<AllSlots/>} path="/slots" />
           </Routes>

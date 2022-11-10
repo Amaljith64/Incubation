@@ -28,6 +28,11 @@ function SideBar() {
 					<span className="nav-text">SLOT</span>
 				</a>
 			</li>
+			<li><a className="has-arrow ai-icon"  aria-expanded="false" onClick={()=> Navigate('/alloted')}>
+					<i className="flaticon-025-dashboard"></i>
+					<span className="nav-text">ALLOTED</span>
+				</a>
+			</li>
 		
 		</ul>
 		

@@ -3,6 +3,7 @@ import AuthContext from "../context/AuthContext";
 import axios from "axios";
 import Header from "../components/Header";
 import '../App.css'
+import Logo from "../components/Logo";
 
 function UserApplication() {
   const { user } = useContext(AuthContext);
@@ -18,6 +19,7 @@ function UserApplication() {
   return (
     <div className="vh-100">
       <Header />
+      <Logo />
       <div className="authincation h-100">
         <div className="container h-100">
           <div className="row justify-content-center h-100 align-items-center">

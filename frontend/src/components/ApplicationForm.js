@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import axios from "axios"
 import SweetAlert from 'react-bootstrap-sweetalert';
 import AuthContext from '../context/AuthContext';
+import Logo from './Logo';
 
 function ApplicationForm() {
 
@@ -63,6 +64,7 @@ const uploadData=(e)=>{
 }
     return (
         <div>
+            <Logo />
             <Header />
 
             <div className="authincation h-100" >

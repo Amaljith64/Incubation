@@ -66,6 +66,17 @@ class SlotList(APIView):
         if availableSLot:
             return Response(availableSLot.data,status=status.HTTP_200_OK)
         return Response(status=status.HTTP_404_NOT_FOUND)
+    def post(self,request):
+        slot=SlotSerializer(data=request.data)
+
+        if slot.is_valid():
+            slot.save()
+            print('slot createdddddddddd')
+            return Response(status=200)
+        else:
+            print('not fcreatedddddddd')
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 
 class BookSlot(APIView):
@@ -75,11 +86,22 @@ class BookSlot(APIView):
         slotid=body['slotid']
         applicantid=body['applicantid']
         print(slotid)
-        print(applicantid)
+        print(applicantid,'oooooooooooooooooooooooooo')
         slot=Slots.objects.get(id=slotid)
         user=Application.objects.get(id=applicantid)
         slot.reservedby=user
         slot.available=False
         slot.save()
+        user.alloted=True
+        user.save()
         return Response(200)
         
+
+class Alloted(APIView):
+    def get(self,request):
+        application = Application.objects.filter(alloted=True)
+        list=ViewBookingSerializer(application,many =True)
+        if list:
+            return Response(list.data,status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)

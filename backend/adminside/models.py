@@ -7,6 +7,6 @@ from accounts.models import *
 
 
 class slot(models.Model):
-    reservedby = models.ForeignKey(Application,on_delete=models.CASCADE)
-    available = models.BooleanField(default=True)
+    reservedby = models.ForeignKey(Application,on_delete=models.SET_NULL,null=True,blank=True)
+    available = models.BooleanField(default=True, null=True, blank=True)
     

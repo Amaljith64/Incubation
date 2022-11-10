@@ -26,7 +26,6 @@ class NewApplication(ModelSerializer):
         model=Application
         fields="__all__"
     
-    pending=serializers.BooleanField(default=True)
 
 class ViewBookingSerializer(ModelSerializer):
 
