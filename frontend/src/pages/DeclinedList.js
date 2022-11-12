@@ -11,7 +11,7 @@ const ApprovedList = () => {
     const[data,setData]= useState([])
     const Swal=require("sweetalert2")
     useEffect(() => {
-    axios.get("http://127.0.0.1:8000/adminside/approved").then((response)=>{setData(response.data)
+    axios.get("http://127.0.0.1:8000/adminside/declined").then((response)=>{setData(response.data)
      
     })
     

@@ -2,26 +2,32 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import propic from "../img/1.png";
+import Swal from "sweetalert2";
 
 const Header = () => {
   let { user, logoutUser } = useContext(AuthContext);
+  // const Swal=require("sweetalert2")
   const Navigate = useNavigate();
 
+  const confirm = () => {
+    Swal.fire({
+      title:"Are you sure",
+        text:"you want to Logout?",
+        icon:"warning",
+        showCancelButton:"true",
+        confirmButtonColor:"#3085D6",
+        cancelButtonColor:"#d33",
+        confirmButtonText:"YES,Logout",
+      }).then((result)=>{
+        if(result.isConfirmed){
+        logoutUser()
+        }
+        }
+      )}
+
+
   return (
-    // <div>
-    //     <Link to='/'>Home</Link>
-    //     <span> | </span>
-    //     {
-    //       user ? (<p onClick={logoutUser} >Logout</p>)
-    //       :(
-    //         <Link to='/login'>Login</Link>
-
-    //       )
-    //     }
-
-    //     {user && <p>Hello {user.username} </p>}
-
-    // </div>
+ 
     <div>
       <div className="header">
         <div className="header-content">
@@ -68,7 +74,7 @@ const Header = () => {
                           <polyline points="16 17 21 12 16 7"></polyline>
                           <line x1="21" y1="12" x2="9" y2="12"></line>
                         </svg>
-                        <span className="ms-2" onClick={logoutUser}>
+                        <span className="ms-2"  onClick={confirm}>
                           Logout{" "}
                         </span>
                       </p>

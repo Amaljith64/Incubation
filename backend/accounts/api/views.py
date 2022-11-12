@@ -72,20 +72,28 @@ class Usersignup(APIView):
 
 
 class Applications(APIView):
+    
     def post(self,request):
-        
-        
         reservation=NewApplication(data=request.data)
-       
-        print(reservation)
-      
+        
+
         if reservation.is_valid():
-            reservation.save()
+            
+            if Application.objects.filter(companyname=request.data['companyname'],alloted=False ).exists():
+                print('rrrrrrrrrrrrr')
+                return Response({
+                    "message":'You already have a pending request',
+                    "status":402
+
+                },status=402)
+           
             print('valid dataaaaaaaaaa')
+            reservation.save()
             return Response(status=200)
         else:
-            print('not founfdddd')
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            print(reservation.errors)
+            print('not founfdddddddddddddddddddddddddddddddddddddddddddddddddddddddddd')
+            return Response(status=400)
         
         
 

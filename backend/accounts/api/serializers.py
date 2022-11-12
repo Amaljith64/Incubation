@@ -3,6 +3,7 @@ from accounts.models import Note,UserDetails
 from django.contrib.auth.models import User
 from accounts.models import *
 from rest_framework import serializers
+from rest_framework.response import Response
 
 
 
@@ -22,10 +23,14 @@ class UserSerializer(ModelSerializer):
 
 
 class NewApplication(ModelSerializer):
+    
+    # def validate_data(self, data):
+    #     if Application.objects.filter(companyname=data['companyname'],alloted=False ).exists():
+    #         raise serializers.ValidationError('You already have a pending request')
+        
     class Meta:
         model=Application
         fields="__all__"
-    
 
 class ViewBookingSerializer(ModelSerializer):
 

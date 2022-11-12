@@ -2,9 +2,25 @@
 import React, {useContext} from 'react'
 import AuthContext from '../context/AuthContext'
 import {Link} from 'react-router-dom'
+import { useForm } from "react-hook-form";
 
 const LoginPage = () => {
   let {loginUser} = useContext(AuthContext)
+  
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    mode: "onChange"
+  });
+
+  const registerOptions = {
+    username: { required: "Name is required" },
+    password: {
+      required: "Password is required",
+      minLength: {
+        value: 4,
+        message: "Password will have at least 4 characters"
+  }
+}
+};
   return (
     // <div>
     //   <form onSubmit={loginUser}>
@@ -27,14 +43,20 @@ const LoginPage = () => {
                         <a href="\"><img src="images/logo-full.png" alt="" /></a>
                       </div>
                       <h4 className="text-center mb-4">Sign in your account</h4>
-                      <form onSubmit={loginUser}>
+                      <form onSubmit={handleSubmit(loginUser)}>
                         <div className="mb-3">
-                          <label className="mb-1"><strong>Email</strong></label>
-                          <input type="text" className="form-control" name='username' placeholder='Username' />
+                          <label className="mb-1"><strong>Username</strong></label>
+                          <input type="text" className="form-control" name='username' placeholder='Username' {...register('username', registerOptions.username)} />
+                          <small className="text-danger">
+                            {errors?.username && errors.username.message}
+                          </small>
                         </div>
                         <div className="mb-3">
                           <label className="mb-1"><strong>Password</strong></label>
-                          <input type="password" className="form-control" name='password' placeholder="Password" />
+                          <input type="password" className="form-control" name='password' placeholder="Password" {...register('password', registerOptions.password)} />
+                          <small className="text-danger">
+                            {errors?.password && errors.password.message}
+                          </small>
                         </div>
                         
                         <div className="text-center">

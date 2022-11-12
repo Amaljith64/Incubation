@@ -63,10 +63,15 @@ function AdminHome() {
       <div className='content-body'>
         <div className='container-fluid'>
         <div className="col-lg-12">
+        { data.length === 0 ?
                         <div className="card">
+                            <div className="card-header justify-content-center">
+                                <h4 className="card-title ">No New Requests</h4>
+                            </div></div>:
+                            <div className="card">
                             <div className="card-header">
-                                <h4 className="card-title">Recent Payments Queue</h4>
-                            </div>
+                            <h4 className="card-title">Recent Payments Queue</h4>
+                        </div>
                             <div className="card-body">
                                 <div className="table-responsive">
                                     <table className="table table-responsive-md">
@@ -103,6 +108,7 @@ function AdminHome() {
                                 </div>
                             </div>
                         </div>
+}
                     </div>
 
         </div>

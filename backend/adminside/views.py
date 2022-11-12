@@ -47,6 +47,14 @@ class Approved(APIView):
             return Response(list.data,status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+class Declined(APIView):
+    def get(self,request):
+        application = Application.objects.filter(status="DECLINED")
+        list=ViewBookingSerializer(application,many =True)
+        if list:
+            return Response(list.data,status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 
@@ -101,6 +109,16 @@ class Alloted(APIView):
     def get(self,request):
         application = Application.objects.filter(alloted=True)
         list=ViewBookingSerializer(application,many =True)
+        if list:
+            return Response(list.data,status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class ViewDetail(APIView):
+    def get(self,request,id):
+        details=Application.objects.get(id=id)
+        list=ViewBookingSerializer(details,many =False)
         if list:
             return Response(list.data,status=status.HTTP_200_OK)
         else:

@@ -8,3 +8,5 @@ class SlotSerializer(ModelSerializer):
     class Meta:
         model=Slots
         fields="__all__"
+
+    

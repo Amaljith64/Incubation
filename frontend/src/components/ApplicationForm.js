@@ -46,20 +46,29 @@ const uploadData=(e)=>{
     console.log(formSent,'formmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm')
 //    const Authorization=`Bearer ${token.access}`
   axios.post("http://127.0.0.1:8000/api/userapplication/",formSent).then((response)=>{
-    alert(response.status)
-
-         Swal.fire({ title:"uploaded",
+    console.log(response.status,'jjjjjjjjjjjjjjjjjjjjj')
+           
+            console.log('hhhhhhhhhhhhhhhhhhhhhhhh')
+            
+            Swal.fire({ title:"uploaded",
+            
+            icon:"success",})
+            setData({
+                user:"",
+                companyname:"",
+                email:"",
+                phone:"",
+                address:"",
+                img:""
+            })
         
-         icon:"success",})
-    setData({
-        user:"",
-        companyname:"",
-        email:"",
-        phone:"",
-        address:"",
-        img:""
+        
+    }).catch((error)=>{
+        console.log(error.response.data)
+        Swal.fire({ title:error.response.data.message,
+            
+            icon:"success",})
     })
-  })
 
 }
     return (
@@ -132,7 +141,7 @@ const uploadData=(e)=>{
                                                                         <span className="text-danger">*</span>
                                                                     </label>
                                                                     <div className="col-lg-8">
-                                                                        <input type="text" value={data.phone} onChange={onHandlechange} className="form-control" id="validationCustom08" placeholder="212-999-0000" required name='phone'/>
+                                                                        <input type="number" value={data.phone} onChange={onHandlechange} className="form-control" id="validationCustom08" placeholder="212-999-0000" required name='phone'/>
                                                                         <div className="invalid-feedback">
                                                                             Please enter a phone no.
                                                                         </div>

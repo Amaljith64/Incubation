@@ -17,22 +17,22 @@ export const AuthProvider = ({ children }) => {
       : null
   );
   const [loading, setLoading] = useState(true);
+  const[viewdetails,setviewdetails]=useState([])
   const Navigate = useNavigate();
 
   let loginUser = async (e) => {
-    e.preventDefault();
     let response = await fetch("http://127.0.0.1:8000/api/token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: e.target.username.value,
-        password: e.target.password.value,
+        username: e.username,
+        password: e.password,
       }),
     });
 
-
+    const Swal=require("sweetalert2")
     let data = await response.json();
     console.log(data);
     if (response.status === 200) {
@@ -45,7 +45,9 @@ export const AuthProvider = ({ children }) => {
         Navigate('/')
       }
     } else {
-      alert("something went wrong");
+      Swal.fire({ title:"Fill all field",
+            
+            icon:"warning",})
     }
   };
 
@@ -58,11 +60,23 @@ export const AuthProvider = ({ children }) => {
   };
 
 
+
+  let viewDetail = (id)=> {
+ 
+    axios.get(`http://127.0.0.1:8000/adminside/viewdetail/${id}`).then((response)=>{
+      setviewdetails(response.data)
+
+
+    })
+    
+
+  }
+
+
   let userSignup = async (e)=>{
     
-    e.preventDefault();
     let response = await axios.post("http://127.0.0.1:8000/api/signup/",
-    {'username':e.target.name.value, 'email':e.target.email.value, 'password':e.target.password.value})
+    {'username':e.name, 'email':e.email, 'password':e.password})
     
   
 
@@ -107,6 +121,8 @@ export const AuthProvider = ({ children }) => {
     loginUser: loginUser,
     logoutUser: logoutUser,
     userSignup:userSignup,
+    viewDetail:viewDetail,
+    viewdetails:viewdetails,
   };
 
   useEffect(() => {
