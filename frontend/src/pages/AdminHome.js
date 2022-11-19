@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import Header from '../components/Header'
 import Logo from '../components/Logo'
 import AdminSideBar from '../components/AdminSideBar'
+import AuthContext from '../context/AuthContext';
 
 
 import axios from "axios";
@@ -52,6 +53,7 @@ function AdminHome() {
         }
        })
   }
+  const {viewdetails,viewDetail} = useContext(AuthContext)
   
 
 
@@ -95,7 +97,7 @@ function AdminHome() {
                                                 <td>{list.companyname}</td>
                                                 <td>{list.email}</td>
                                                 <td>{list.phone}</td>
-                                                <td><span className="badge  badge-primary">VIEW</span></td>
+                                                <td><span data-bs-toggle="modal" onClick={()=> viewDetail(list.id) } data-bs-target="#exampleModalCenter" className="badge   badge-primary">VIEW</span></td>
                                                 <td><span className="badge  badge-success"onClick={()=>approveList(list.id)}>Approve</span></td>
                                                 <td><span className="badge  badge-danger"onClick={()=>declineList(list.id)}>Decline</span></td>
                                                 
@@ -109,6 +111,25 @@ function AdminHome() {
                             </div>
                         </div>
 }
+<div class="modal fade" id="exampleModalCenter">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Modal title</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <p>{viewdetails && viewdetails.companyname}</p>
+                                                  <p>{viewdetails.email}</p>
+                                                  <p>{viewdetails.status}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                     </div>
 
         </div>

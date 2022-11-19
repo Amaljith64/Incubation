@@ -37,6 +37,20 @@ const onHandlechange=(e)=>{
 const uploadData=(e)=>{
     console.log('clickeddddddddddddddd')
     e.preventDefault()
+    console.log(data.img)
+    if(data.img===''){
+      Swal.fire('Upload LOGO! ', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return
+    }
     console.log(data,'data.............................')
   
     const formSent= new FormData()
